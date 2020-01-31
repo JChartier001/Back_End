@@ -1,7 +1,24 @@
-const server = require("./server.js");
+const express = require("express");
 
-const PORT = process.env.PORT || 4000;
+const cors = require("cors");
+const helmet = require("helmet");
 
-server.listen(PORT, () => {
-    console.log(`\n** Server running on port: ${PORT} **\n`);
+
+const patientRoute = require("./routes/patientRoute/patientRoute");
+const driverRoute = require("./routes/driverRoute/driverRoute");
+
+server.use(helmet());
+
+server.use(express.json());
+server.use(cors());
+
+server.use("/api/patient", patientRoute);
+server.use("/api/driver", driverRoute);
+
+
+
+server.get("/", (req, res) => {
+  res.status(200).json({ api: "up", dbenv: process.env.DB_ENV });
 });
+
+module.exports = server;
