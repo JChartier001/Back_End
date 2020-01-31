@@ -7,6 +7,7 @@ const helmet = require("helmet");
 const patientRoute = require("./routes/patientRoute/patientRoute");
 const driverRoute = require("./routes/driverRoute/driverRoute");
 
+const server = express();
 server.use(helmet());
 
 server.use(express.json());
